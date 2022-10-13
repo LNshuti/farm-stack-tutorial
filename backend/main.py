@@ -26,7 +26,7 @@ app.add_middleware(
 )
 
 @app.get("/")
-def read_root():
+async def read_root():
     return{"Ping": "Pong"}
 
 @app.get("/api/todo")
@@ -34,7 +34,7 @@ async def get_todo():
     response = await fetch_all_todos()
     return response 
 
-@app.get("/api/todo{title}", response_model=Todo)
+@app.get("/api/todo/{title}", response_model=Todo)
 async def get_todo_by_id(title):
     response = await fetch_one_todo(title)
     if response:
@@ -50,7 +50,7 @@ async def post_todo(todo:Todo):
     raise HTTPException(400, "Bad request")
     
 
-@app.put("/api/todo{title}", response_model=Todo)
+@app.put("/api/todo/{title}", response_model=Todo)
 async def put_todo(title, desc):
     response = await update_todo(title, desc)
     if response: 
