@@ -42,7 +42,7 @@ async def get_todo_by_id(title):
     raise HTTPException(404, f"there is no todo item with this title {title}")
     
 
-@app.post("/api/todo", response_class=Todo)
+@app.post("/api/todo/", response_model=Todo)
 async def post_todo(todo:Todo):
     response = await create_todo(todo.dict())
     if response: 
